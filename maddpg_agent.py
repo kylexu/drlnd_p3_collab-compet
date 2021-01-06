@@ -12,7 +12,7 @@ import torch.optim as optim
 BUFFER_SIZE = int(1e6)  # replay buffer size
 BATCH_SIZE = 256        # minibatch size
 GAMMA = 0.99            # discount factor
-TAU = 1e-3              # for soft update of target parameters
+TAU = 5e-3              # for soft update of target parameters
 LR_ACTOR = 1e-4         # learning rate of the actor
 LR_CRITIC = 3e-4        # learning rate of the critic
 WEIGHT_DECAY = 0.0      # L2 weight decay
@@ -27,9 +27,9 @@ print("The device to use: ", device)
 class Agent():
     """Interacts with and learns from the environment."""
     memory = None
-    actor_local = None
-    actor_target = None
-    actor_optimizer = None
+    #actor_local = None
+    #actor_target = None
+    #actor_optimizer = None
 
     critic_local = None
     critic_target = None
@@ -81,7 +81,7 @@ class Agent():
             Agent.memory = ReplayBuffer(
                 action_size, BUFFER_SIZE, BATCH_SIZE, random_seed)
 
-        # In order to access all actors' states when learning
+        # In order to access all actors' states at instance level when learning
         self.agent_num = len(Agent.instances)
         Agent.instances.append(self)
         print("Agent {} appended to Agent.instances".format(self.agent_num))
